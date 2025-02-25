@@ -10,17 +10,24 @@ public class Bullet : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    private void Start(){
+    private void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, lifetime);
     }
-    private void FixedUpdate() {
-        rb.linearVelocity = transform.up * speed;
+
+    private void FixedUpdate()
+    {
+        rb.linearVelocity = transform.up * speed;  
     }
 
-    // To delete when the bullet hits enemy 
-    /*private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Enemy")) {
+    // To delete when the bullet hits enemy
+    private void OnTriggerEnter2D(Collider2D other)  
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(other.gameObject);  
+            Destroy(gameObject);  
+        }
     }
-*/
 }
