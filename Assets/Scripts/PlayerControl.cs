@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
@@ -18,10 +20,15 @@ public class PlayerControl : MonoBehaviour
 
     private Camera camera;
 
+    [SerializeField] private Stats stats;
+    
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         camera = Camera.main;
+        Debug.Log(stats.health);
+        Debug.Log(stats.damage);
     }
 
     void FixedUpdate()
@@ -48,9 +55,9 @@ public class PlayerControl : MonoBehaviour
         {
             fireTimer -= Time.deltaTime;
         }
-
       
         PreventLeavingScreen();
+
     }
 
     private void Shoot()
@@ -77,5 +84,22 @@ public class PlayerControl : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
         }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {  
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Player hit an enemy!");
+            stats.health -= stats.damage ;
+            Debug.Log("New Health: " + stats.health);
+        }
+        // if the players health is 0 hide it and stop the game
+        if(stats.health <= 0)
+        {
+            Renderer playerRenderer = GetComponent<Renderer>();
+            playerRenderer.enabled = false;
+            Time.timeScale = 0f;
+        }
+           
     }
 }

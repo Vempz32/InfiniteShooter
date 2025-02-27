@@ -1,2 +1,2 @@
 # InfiniteShooter
- Unity C# infinite sShooter Game
+ Unity C# infinite Shooter Game

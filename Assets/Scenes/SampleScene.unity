@@ -408,6 +408,7 @@ MonoBehaviour:
   bullet: {fileID: 6526471031487155546, guid: 2524845225a726a4cbc96a5ab3892e49, type: 3}
   firingPoint: {fileID: 1184039884}
   fireRate: 0.5
+  stats: {fileID: 1158653833}
 --- !u!212 &1158653830
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -509,7 +510,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -537,6 +538,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e110be1c27fd9469583607c55452bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
+  damage: 50
 --- !u!1 &1184039883
 GameObject:
   m_ObjectHideFlags: 0

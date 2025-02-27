@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
-    [SerializeField] float health;
+    public float health = 100f;
+    public float damage = 50f;
+    
     void Start()
     {
           
