@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour
     private Camera camera;
 
     [SerializeField] private Stats stats;
-    
+    [SerializeField] private GameManager gameManager;
 
     void Start()
     {
@@ -93,12 +93,22 @@ public class PlayerControl : MonoBehaviour
             stats.health -= stats.damage ;
             Debug.Log("New Health: " + stats.health);
         }
-        // if the players health is 0 hide it and stop the game
+        // if the players health is 0 hide it 
         if(stats.health <= 0)
         {
-            Renderer playerRenderer = GetComponent<Renderer>();
-            playerRenderer.enabled = false;
+            
+            gameObject.SetActive(false);
+
+            //Destroying enemy once game ends
+            if(other.gameObject.CompareTag("Enemy"))
+            {
+                Destroy(other.gameObject);
+            }
+
+            // stopping the game
             Time.timeScale = 0f;
+            gameManager.GameOverScreen();
+            
         }
            
     }
