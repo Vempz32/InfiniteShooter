@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public float moveSpeed;
+    
     private float speedX, speedY;
 
     private Vector2 mousePos;
@@ -15,7 +15,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private Transform firingPoint;
 
     [Range(0.1f, 1f)]
-    [SerializeField] private float fireRate = 0.5f;
+
     Rigidbody2D rb;
 
     private Camera camera;
@@ -33,14 +33,11 @@ public class PlayerControl : MonoBehaviour
 
     void FixedUpdate()
     {
-       
-        speedX = Input.GetAxis("Horizontal") * moveSpeed;
-        speedY = Input.GetAxis("Vertical") * moveSpeed;
+        speedX = Input.GetAxis("Horizontal") * stats.movementSpeed;
+        speedY = Input.GetAxis("Vertical") * stats.movementSpeed;;
 
-        
         rb.linearVelocity = new Vector2(speedX, speedY);
 
-       
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg - 90f;
         transform.localRotation = Quaternion.Euler(0, 0, angle);
@@ -49,7 +46,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetMouseButton(0) && fireTimer <= 0f)
         {
             Shoot();
-            fireTimer = fireRate;
+            fireTimer = stats.fireRate;
         }
         else
         {
@@ -57,7 +54,6 @@ public class PlayerControl : MonoBehaviour
         }
       
         PreventLeavingScreen();
-
     }
 
     private void Shoot()
@@ -67,9 +63,7 @@ public class PlayerControl : MonoBehaviour
 
     private void PreventLeavingScreen()
     {
-      
         Vector2 screenPosition = camera.WorldToScreenPoint(transform.position);
-
         Vector2 worldBottomLeft = camera.ScreenToWorldPoint(new Vector3(0, 0, 0));
         Vector2 worldTopRight = camera.ScreenToWorldPoint(new Vector3(camera.pixelWidth, camera.pixelHeight, 0));
 
@@ -85,6 +79,7 @@ public class PlayerControl : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {  
         if(other.gameObject.CompareTag("Enemy"))
@@ -96,7 +91,6 @@ public class PlayerControl : MonoBehaviour
         // if the players health is 0 hide it 
         if(stats.health <= 0)
         {
-            
             gameObject.SetActive(false);
 
             //Destroying enemy once game ends
@@ -108,8 +102,20 @@ public class PlayerControl : MonoBehaviour
             // stopping the game
             Time.timeScale = 0f;
             gameManager.GameOverScreen();
-            
         }
-           
+
+        // Speeding the player up when they hit a speed boost
+        if(other.gameObject.CompareTag("SpeedUp"))
+        {
+            stats.movementSpeed *= 1.1f;
+            Destroy(other.gameObject);
+        }
+
+        // Increase the Firerate when the player hits a Firerate Boost
+        if(other.gameObject.CompareTag("FirerateBoost"))
+        {
+            stats.fireRate /= 1.1f;
+            Destroy(other.gameObject);
+        }
     }
 }
