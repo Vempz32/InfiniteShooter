@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     [Range(1, 10)]
     [SerializeField] private float lifetime = 3f;
 
+    public float damage = 10.0f;
+
     private Rigidbody2D rb;
 
     private void Start()
@@ -21,13 +23,5 @@ public class Bullet : MonoBehaviour
         rb.linearVelocity = transform.up * speed;  
     }
 
-    // To delete when the bullet hits enemy
-    private void OnTriggerEnter2D(Collider2D other)  
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Destroy(other.gameObject);  
-            Destroy(gameObject);  
-        }
-    }
+    
 }

@@ -21,6 +21,7 @@ public class PlayerControl : MonoBehaviour
     private Camera camera;
 
     [SerializeField] private Stats stats;
+    
     [SerializeField] private GameManager gameManager;
 
     void Start()
@@ -28,7 +29,6 @@ public class PlayerControl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         camera = Camera.main;
         Debug.Log(stats.health);
-        Debug.Log(stats.damage);
     }
 
     void FixedUpdate()
@@ -82,11 +82,17 @@ public class PlayerControl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {  
+        
         if(other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Player hit an enemy!");
-            stats.health -= stats.damage ;
-            Debug.Log("New Health: " + stats.health);
+            EnemyStats enemyScript = other.GetComponent<EnemyStats>();
+
+            
+            if(enemyScript != null)
+            {
+                float enemyDamage = enemyScript.damage;
+                TakeDamage(enemyDamage);
+            }
         }
         // if the players health is 0 hide it 
         if(stats.health <= 0)
@@ -117,5 +123,10 @@ public class PlayerControl : MonoBehaviour
             stats.fireRate /= 1.1f;
             Destroy(other.gameObject);
         }
+    }
+    private void TakeDamage(float damageAmount)
+    {
+        stats.health -= damageAmount;
+         Debug.Log("Player took damage! Health: " + stats.health);
     }
 }

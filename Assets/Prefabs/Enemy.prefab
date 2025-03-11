@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3067898498048066919}
   - component: {fileID: 1493130123773254607}
   - component: {fileID: 8139790798185489986}
-  - component: {fileID: -2950544373257010648}
+  - component: {fileID: 879001788097839661}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -104,6 +104,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 3
+  enemyStats: {fileID: 879001788097839661}
+  speedUp: {fileID: 4605297769392275579, guid: 0935a44b280186646a4d5f39dc566358, type: 3}
+  fireRateBoost: {fileID: 1264278501305256600, guid: d761bf6b6f5420740af2f2846f4489da, type: 3}
 --- !u!58 &1493130123773254607
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -167,7 +170,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-2950544373257010648
+--- !u!114 &879001788097839661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,8 +179,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2180903096053832391}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14e110be1c27fd9469583607c55452bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 2738cab80ff243c45b0b0878b672e839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  damage: 50
+  damage: 20
