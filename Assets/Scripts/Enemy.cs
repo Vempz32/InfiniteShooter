@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FollowPlayer : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private float Speed = 4.0f;
 
@@ -50,7 +50,7 @@ public class FollowPlayer : MonoBehaviour
         enemyStats.health -= damageAmount;
 
     }
-    
+    // Giving a 10% chance to drop a power up
     private void DropPowerUp()
     {
         float randomValue = Random.Range(0f, 1f);
@@ -59,7 +59,10 @@ public class FollowPlayer : MonoBehaviour
         if(randomValue > Threshold)
         {
             Debug.Log("PowerupDropped");
-            Instantiate(speedUp, transform.position, Quaternion.identity);
+            // Picking a random power up to drop   
+            GameObject powerUp = (Random.value > 0.5f) ? speedUp : fireRateBoost;
+
+            Instantiate(powerUp, transform.position, Quaternion.identity);
         }
 
     } 

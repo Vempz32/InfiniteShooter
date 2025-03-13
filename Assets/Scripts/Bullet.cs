@@ -5,8 +5,7 @@ public class Bullet : MonoBehaviour
     [Range(1, 10)]
     [SerializeField] private float speed = 100f;
 
-    [Range(1, 10)]
-    [SerializeField] private float lifetime = 3f;
+
 
     public float damage = 10.0f;
 
@@ -15,12 +14,17 @@ public class Bullet : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, lifetime);
+     
     }
 
     private void FixedUpdate()
     {
         rb.linearVelocity = transform.up * speed;  
+    }
+
+    private void OnBecameInvisible() 
+    {
+        Destroy(gameObject);
     }
 
     

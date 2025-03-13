@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5601831466122332027}
   - component: {fileID: 2113878476725335693}
-  - component: {fileID: -2784742217728568038}
   - component: {fileID: 2571223318194692532}
   - component: {fileID: -1069208113063647496}
+  - component: {fileID: -113631309072400031}
   - component: {fileID: -7980613760773690708}
   m_Layer: 0
   m_Name: BossEnemy
@@ -91,22 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-2784742217728568038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8773055646198402775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c24ed7856db53d4082a0d773e4b59a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 1.5
-  enemyStats: {fileID: -7980613760773690708}
-  speedUp: {fileID: 4605297769392275579, guid: 0935a44b280186646a4d5f39dc566358, type: 3}
-  fireRateBoost: {fileID: 1264278501305256600, guid: d761bf6b6f5420740af2f2846f4489da, type: 3}
 --- !u!70 &2571223318194692532
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -171,6 +155,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-113631309072400031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8773055646198402775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c24ed7856db53d4082a0d773e4b59a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 2
+  enemyStats: {fileID: -7980613760773690708}
+  speedUp: {fileID: 4605297769392275579, guid: 0935a44b280186646a4d5f39dc566358, type: 3}
+  fireRateBoost: {fileID: 1264278501305256600, guid: d761bf6b6f5420740af2f2846f4489da, type: 3}
 --- !u!114 &-7980613760773690708
 MonoBehaviour:
   m_ObjectHideFlags: 0
