@@ -111,16 +111,22 @@ public class PlayerControl : MonoBehaviour
         }
 
         // Speeding the player up when they hit a speed boost
-        if(other.gameObject.CompareTag("SpeedUp"))
-        {
-            stats.movementSpeed *= 1.1f;
-            Destroy(other.gameObject);
-        }
+        // if(other.gameObject.CompareTag("SpeedUp"))
+        // {
+        //     stats.movementSpeed *= 1.1f;
+        //     Destroy(other.gameObject);
+        // }
 
-        // Increase the Firerate when the player hits a Firerate Boost
-        if(other.gameObject.CompareTag("FirerateBoost"))
+        // // Increase the Firerate when the player hits a Firerate Boost
+        // if(other.gameObject.CompareTag("FirerateBoost"))
+        // {
+        //     stats.fireRate /= 1.1f;
+        //     Destroy(other.gameObject);
+        // }
+
+        if(other.gameObject.CompareTag("LootBox"))
         {
-            stats.fireRate /= 1.1f;
+            // Destroy the loot box
             Destroy(other.gameObject);
         }
     }

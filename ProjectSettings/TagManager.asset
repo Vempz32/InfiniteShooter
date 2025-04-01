@@ -8,6 +8,7 @@ TagManager:
   - SpeedUp
   - FirerateBoost
   - Projectile
+  - LootBox
   layers:
   - Default
   - TransparentFX
