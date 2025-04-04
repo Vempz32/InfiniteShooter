@@ -60,9 +60,6 @@ public class Enemy : MonoBehaviour
         if(randomValue > Threshold)
         {
             Debug.Log("LootBox Dropped");
-            // Picking a random power up to drop   
-            //GameObject powerUp = (Random.value > 0.5f) ? speedUp : fireRateBoost;
-
             Instantiate(LootBox, transform.position, Quaternion.identity);
         }
 

@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject PausedMenu;
     public GameObject GameOverMenu;
+    public GameObject LootBoxScreen;
     public Button ReturnButton;
     public Button RestartButton;
     
@@ -45,6 +46,16 @@ public class GameManager : MonoBehaviour
     {
         GameOverMenu.SetActive(true);
         Time.timeScale = 0f;
+    }
+    public void LootBoxScreenOn()
+    {
+        LootBoxScreen.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    public void LootBoxScreenOff()
+    {
+        LootBoxScreen.SetActive(false);
+        Time.timeScale = 1f;
     }
         
 }

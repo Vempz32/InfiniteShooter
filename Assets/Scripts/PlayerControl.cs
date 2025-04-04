@@ -14,15 +14,13 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform firingPoint;
 
-    [Range(0.1f, 1f)]
-
     Rigidbody2D rb;
-
     private Camera camera;
 
     [SerializeField] private Stats stats;
-    
     [SerializeField] private GameManager gameManager;
+
+    private Coroutine regenRoutine;
 
     void Start()
     {
@@ -110,23 +108,9 @@ public class PlayerControl : MonoBehaviour
             gameManager.GameOverScreen();
         }
 
-        // Speeding the player up when they hit a speed boost
-        // if(other.gameObject.CompareTag("SpeedUp"))
-        // {
-        //     stats.movementSpeed *= 1.1f;
-        //     Destroy(other.gameObject);
-        // }
-
-        // // Increase the Firerate when the player hits a Firerate Boost
-        // if(other.gameObject.CompareTag("FirerateBoost"))
-        // {
-        //     stats.fireRate /= 1.1f;
-        //     Destroy(other.gameObject);
-        // }
-
         if(other.gameObject.CompareTag("LootBox"))
         {
-            // Destroy the loot box
+            gameManager.LootBoxScreenOn();
             Destroy(other.gameObject);
         }
     }
@@ -134,5 +118,23 @@ public class PlayerControl : MonoBehaviour
     {
         stats.health -= damageAmount;
          Debug.Log("Player took damage! Health: " + stats.health);
+    }
+    public void StartHealthRegen()
+    {
+        if (regenRoutine == null)
+        {
+            regenRoutine = StartCoroutine(RegenHealth());
+        }
+    }
+
+    private IEnumerator RegenHealth()
+    {
+        while(stats.health < stats.maxHealth)
+        {
+            stats.health += stats.healthRegen * Time.deltaTime;
+            stats.health = Mathf.Min(stats.health, stats.maxHealth);
+            yield return null;
+        }
+        regenRoutine = null;
     }
 }
