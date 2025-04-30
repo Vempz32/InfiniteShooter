@@ -5,6 +5,7 @@ public class Stats : MonoBehaviour
     public float health = 100f;
     public float maxHealth;
     public float healthRegen;
+    public float Damage = 100.0f;
     
     public float movementSpeed;
 

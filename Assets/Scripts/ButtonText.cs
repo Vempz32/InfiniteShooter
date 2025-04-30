@@ -40,6 +40,7 @@ public class ButtonText : MonoBehaviour
 
     void ApplyPowerUp(string powerUp)
     {
+        // a switch to apply a set powerup based on the button pressed
         switch(powerUp)
         {
             case "HealthBoost":
@@ -56,13 +57,14 @@ public class ButtonText : MonoBehaviour
                 break;
 
             case "DamageBoost":
-                Debug.Log("Damage");
+                stats.Damage += 10.0f;
                 break;
             case "HealthRegen":
                 stats.healthRegen += 1.0f;
                 playerControl.StartHealthRegen();
                 break;
         }
+        // turning the lootBoxScreen off 
         gameManager.LootBoxScreenOff();
     }
 

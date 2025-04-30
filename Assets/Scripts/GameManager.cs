@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject PausedMenu;
@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
     public GameObject LootBoxScreen;
     public Button ReturnButton;
     public Button RestartButton;
-    
 
-  
+    private bool isPaused = false;
     void Start()
     {
+        LootBoxScreen.SetActive(false);
         ReturnButton.onClick.AddListener(OnReturnButtonClick);
         RestartButton.onClick.AddListener(OnResartButtonClick);
     }
@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour
        if(Input.GetKeyDown(KeyCode.Escape))
         {
             // Toggeling the visbilty of the PausedMenu
-            PausedMenu.SetActive(true);
-            Time.timeScale = 0f;
+            isPaused = !isPaused;
+            PausedMenu.SetActive(isPaused);
+            Time.timeScale = isPaused ? 0f : 1f;
         }
+      
     }
     
     void OnReturnButtonClick()
@@ -38,15 +40,17 @@ public class GameManager : MonoBehaviour
 
     void OnResartButtonClick()
     {
-        Application.LoadLevel(0);
         Time.timeScale = 1f;
+        SceneManager.LoadScene("GameScreen");
     }
 
     public void GameOverScreen()
     {
+
         GameOverMenu.SetActive(true);
         Time.timeScale = 0f;
     }
+
     public void LootBoxScreenOn()
     {
         LootBoxScreen.SetActive(true);

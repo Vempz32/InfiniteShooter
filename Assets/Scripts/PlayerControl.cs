@@ -9,15 +9,16 @@ public class PlayerControl : MonoBehaviour
 
     private Vector2 mousePos;
     private float fireTimer;
+    private float damageTimer;
 
     // Gun variables
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform firingPoint;
 
     Rigidbody2D rb;
-    private Camera camera;
+    private Camera playerCamera;
 
-    [SerializeField] private Stats stats;
+    public Stats stats;
     [SerializeField] private GameManager gameManager;
 
     private Coroutine regenRoutine;
@@ -25,7 +26,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        camera = Camera.main;
+        playerCamera = Camera.main;
         Debug.Log(stats.health);
     }
 
@@ -52,6 +53,11 @@ public class PlayerControl : MonoBehaviour
         }
       
         PreventLeavingScreen();
+
+        if (damageTimer > 0)
+        {
+            damageTimer -= Time.deltaTime;
+        }
     }
 
     private void Shoot()
@@ -61,18 +67,18 @@ public class PlayerControl : MonoBehaviour
 
     private void PreventLeavingScreen()
     {
-        Vector2 screenPosition = camera.WorldToScreenPoint(transform.position);
-        Vector2 worldBottomLeft = camera.ScreenToWorldPoint(new Vector3(0, 0, 0));
-        Vector2 worldTopRight = camera.ScreenToWorldPoint(new Vector3(camera.pixelWidth, camera.pixelHeight, 0));
+        Vector2 screenPosition = playerCamera.WorldToScreenPoint(transform.position);
+        Vector2 worldBottomLeft = playerCamera.ScreenToWorldPoint(new Vector3(0, 0, 0));
+        Vector2 worldTopRight = playerCamera.ScreenToWorldPoint(new Vector3(playerCamera.pixelWidth, playerCamera.pixelHeight, 0));
 
         // Restrict the player's movement on the left and right
-        if (screenPosition.x < 0 && rb.linearVelocity.x < 0 || screenPosition.x > camera.pixelWidth && rb.linearVelocity.x > 0)
+        if (screenPosition.x < 0 && rb.linearVelocity.x < 0 || screenPosition.x > playerCamera.pixelWidth && rb.linearVelocity.x > 0)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y); 
         }
 
         // Restrict the player's movement on the top and bottom
-        if (screenPosition.y < 0 && rb.linearVelocity.y < 0 || screenPosition.y > camera.pixelHeight && rb.linearVelocity.y > 0)
+        if (screenPosition.y < 0 && rb.linearVelocity.y < 0 || screenPosition.y >playerCamera.pixelHeight && rb.linearVelocity.y > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
         }
@@ -81,13 +87,13 @@ public class PlayerControl : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {  
         
-        if(other.gameObject.CompareTag("Enemy"))
+        if(other.gameObject.CompareTag("Enemy") && damageTimer <= 0)
         {
             EnemyStats enemyScript = other.GetComponent<EnemyStats>();
-
             
             if(enemyScript != null)
             {
+                damageTimer = enemyScript.attackSpeed;
                 float enemyDamage = enemyScript.damage;
                 TakeDamage(enemyDamage);
             }
